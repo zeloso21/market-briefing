@@ -140,13 +140,12 @@ body {
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
     <div class="modal-title">종목 추가</div>
-    <input class="modal-input" id="ticker-in" placeholder="종목코드  예) 005930  /  TSLA">
-    <input class="modal-input" id="name-in"   placeholder="종목명  예) 삼성전자  (비워두면 코드로 표시)">
+    <input class="modal-input" id="ticker-in" placeholder="종목코드만 입력  예) 005930 · TSLA · AAPL">
     <div class="modal-err" id="modal-err"></div>
     <p class="modal-hint">
-      한국 주식: KRX 6자리 코드<br>
+      한국 주식: KRX 6자리 코드 (예: 005930)<br>
       해외 주식: 야후 파이낸스 티커 (AAPL, TSLA 등)<br>
-      데이터는 매 평일 오전 8시 자동 갱신됩니다
+      종목명은 자동으로 가져옵니다
     </p>
     <div class="modal-btns">
       <button class="btn-confirm" id="confirm-btn">추가하기</button>
@@ -156,6 +155,10 @@ body {
 </div>
 
 <script>
+// ── 전역 상태 ─────────────────────────────────────────────
+
+let cachedSymbols = {};   // data.json symbols, loadAll() 시 갱신
+
 // ── 설정 ──────────────────────────────────────────────────
 
 const INDICES = [
@@ -334,6 +337,7 @@ async function loadAll() {
 
   // data.json 로드 (메인 소스)
   const { symbols, updated } = await loadDataJson();
+  cachedSymbols = symbols;
 
   // 지수: data.json 사용, 없으면 Yahoo Finance 시도
   const indicesFetches = INDICES.map(async idx => {
@@ -385,14 +389,13 @@ document.getElementById('stocks-grid').addEventListener('click', e => {
 
 // ── 모달 ─────────────────────────────────────────────────
 
-const modal     = document.getElementById('modal');
-const tickerIn  = document.getElementById('ticker-in');
-const nameIn    = document.getElementById('name-in');
-const errEl     = document.getElementById('modal-err');
+const modal      = document.getElementById('modal');
+const tickerIn   = document.getElementById('ticker-in');
+const errEl      = document.getElementById('modal-err');
 const confirmBtn = document.getElementById('confirm-btn');
 
 document.getElementById('open-modal').onclick = () => {
-  tickerIn.value = ''; nameIn.value = ''; errEl.textContent = '';
+  tickerIn.value = ''; errEl.textContent = '';
   modal.classList.add('open');
   setTimeout(() => tickerIn.focus(), 200);
 };
@@ -400,22 +403,22 @@ document.getElementById('cancel-btn').onclick = () => modal.classList.remove('op
 modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
 
 confirmBtn.onclick = () => {
-  const ticker = tickerIn.value.trim().toUpperCase();
+  const raw    = tickerIn.value.trim();
+  const ticker = raw.toUpperCase();
   errEl.textContent = '';
   if (!ticker) { errEl.textContent = '종목코드를 입력하세요.'; return; }
-  if (!/^[\w\^=.]{1,10}$/.test(ticker)) { errEl.textContent = '올바른 종목코드 형식이 아닙니다.'; return; }
   if (getStocks().find(s => s.ticker === ticker)) {
     errEl.textContent = '이미 추가된 종목입니다.'; return;
   }
-  const name = nameIn.value.trim() || ticker;
+  // 이름: data.json에 있으면 자동 조회, 없으면 코드로 표시
+  const sym  = toSymbol(ticker);
+  const name = cachedSymbols[sym]?.name ?? ticker;
   saveStocks([...getStocks(), { ticker, name }]);
   modal.classList.remove('open');
   loadAll();
 };
 
-[tickerIn, nameIn].forEach(el =>
-  el.addEventListener('keydown', e => { if (e.key === 'Enter') confirmBtn.click(); })
-);
+tickerIn.addEventListener('keydown', e => { if (e.key === 'Enter') confirmBtn.click(); });
 
 loadAll();
 </script>
