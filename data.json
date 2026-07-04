@@ -1,0 +1,98 @@
+{
+  "updated": "2026-07-04T14:02:40",
+  "symbols": {
+    "^KS11": {
+      "name": "코스피",
+      "current": 8088.3398,
+      "dayChg": 440.25,
+      "dayPct": 5.7563,
+      "monthPct": -6.3786,
+      "monthUp": false,
+      "lastVol": 0,
+      "currency": "KRW"
+    },
+    "^KQ11": {
+      "name": "코스닥",
+      "current": 868.41,
+      "dayChg": 1.69,
+      "dayPct": 0.195,
+      "monthPct": -17.273,
+      "monthUp": false,
+      "lastVol": 0,
+      "currency": "KRW"
+    },
+    "USDKRW=X": {
+      "name": "원/달러 환율",
+      "current": 1530.15,
+      "dayChg": -21.66,
+      "dayPct": -1.3958,
+      "monthPct": 0.0026,
+      "monthUp": true,
+      "lastVol": 0,
+      "currency": "KRW"
+    },
+    "^GSPC": {
+      "name": "S&P 500",
+      "current": 7483.2402,
+      "dayChg": 0.0103,
+      "dayPct": 0.0001,
+      "monthPct": -1.6629,
+      "monthUp": false,
+      "lastVol": 0,
+      "currency": "USD"
+    },
+    "^IXIC": {
+      "name": "나스닥종합",
+      "current": 25832.6699,
+      "dayChg": -207.3594,
+      "dayPct": -0.7963,
+      "monthPct": -4.655,
+      "monthUp": false,
+      "lastVol": 0,
+      "currency": "USD"
+    },
+    "^N225": {
+      "name": "닛케이225",
+      "current": 69744.0703,
+      "dayChg": 1010.9219,
+      "dayPct": 1.4708,
+      "monthPct": 3.3694,
+      "monthUp": true,
+      "lastVol": 0,
+      "currency": "JPY"
+    },
+    "005930.KS": {
+      "name": "삼성전자",
+      "current": 309500,
+      "dayChg": 23500,
+      "dayPct": 8.2168,
+      "monthPct": -11.9488,
+      "monthUp": false,
+      "lastVol": 31498600,
+      "currency": "KRW",
+      "ticker": "005930"
+    },
+    "000660.KS": {
+      "name": "SK하이닉스",
+      "current": 2425000,
+      "dayChg": 238000,
+      "dayPct": 10.8825,
+      "monthPct": 5.5265,
+      "monthUp": true,
+      "lastVol": 7951599,
+      "currency": "KRW",
+      "ticker": "000660"
+    },
+    "214370.KS": {
+      "name": "케어젠",
+      "current": 68500,
+      "dayChg": -4500,
+      "dayPct": -6.1644,
+      "monthPct": -18.9349,
+      "monthUp": false,
+      "lastVol": 65392,
+      "currency": "KRW",
+      "ticker": "214370"
+    }
+  }
+}
