@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 마켓 브리핑</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  background: #f0f3ef;
+  min-height: 100vh;
+  color: #111;
+}
+.header {
+  background: linear-gradient(160deg, #0b4d2e 0%, #145d39 100%);
+  padding: 28px 40px 0;
+  color: #fff;
+}
+.badge {
+  font-size: 12px;
+  color: #82c49c;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.h-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; }
+.update-bar {
+  background: #fff;
+  border-radius: 10px 10px 0 0;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #145d39;
+  font-weight: 600;
+}
+.update-bar .meta { font-size: 12px; color: #888; font-weight: 400; margin-left: 8px; }
+.body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+.sec-head {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #dde4d8;
+  padding: 17px 20px 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  transition: box-shadow .15s ease;
+}
+.card:hover { box-shadow: 0 5px 16px rgba(0,0,0,0.09); }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.label   { font-size: 13px; color: #777; font-weight: 500; }
+.chg-row { display: flex; gap: 7px; font-size: 12px; font-weight: 600; }
+.val     { font-size: 26px; font-weight: 800; letter-spacing: -1px; color: #111; }
+.ticker  { font-size: 11px; color: #bbb; margin-top: 6px; }
+.vol-amt { font-size: 11px; color: #999; margin-top: 5px; }
+.up      { color: #c62828; }
+.down    { color: #1565c0; }
+.neutral { color: #ccc; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="badge">✦ 하나증권 WM기획실 · AI 시황 에이전트</div>
+  <div class="h-title">AI 마켓 브리핑</div>
+  <div class="update-bar">
+    <span>✦ AI 시황 업데이트 완료</span>
+    <span class="meta">기준: 2026.07.03 &nbsp;|&nbsp; 갱신: 2026.07.04 13:29</span>
+  </div>
+</div>
+<div class="body">
+  <div class="sec-head">🏦 주요 지수</div>
+  <div class="grid">
+        <div class="card">
+          <div class="card-top">
+            <span class="label">코스피</span>
+            <div class="chg-row"><span class="up">▲ +440.25</span><span class="up">+5.76%</span></div>
+          </div>
+          <div class="val up">8,088.34</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="label">코스닥</span>
+            <div class="chg-row"><span class="up">▲ +1.69</span><span class="up">+0.19%</span></div>
+          </div>
+          <div class="val up">868.41</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="label">원/달러 환율</span>
+            <div class="chg-row"><span class="down">▼ -21.7</span><span class="down">-1.40%</span></div>
+          </div>
+          <div class="val down">1,530.2</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="label">S&P 500</span>
+            <div class="chg-row"><span class="up">▲ +0.01</span><span class="up">+0.00%</span></div>
+          </div>
+          <div class="val up">7,483.24</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="label">나스닥종합</span>
+            <div class="chg-row"><span class="down">▼ -207.36</span><span class="down">-0.80%</span></div>
+          </div>
+          <div class="val down">25,832.67</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="label">닛케이225</span>
+            <div class="chg-row"><span class="up">▲ +1,010.92</span><span class="up">+1.47%</span></div>
+          </div>
+          <div class="val up">69,744.07</div>
+        </div></div>
+  <div class="sec-head">📈 관심 종목</div>
+  <div class="grid">
+        <div class="card">
+          <div class="card-top">
+            <span class="label">삼성전자</span>
+            <div class="chg-row"><span class="up">▲ +23,500</span><span class="up">+8.22%</span></div>
+          </div>
+          <div class="val up">309,500</div>
+          <div class="ticker">005930</div>
+          <div class="vol-amt">거래량 3150만주 &nbsp;|&nbsp; 거래대금 9.7조</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="label">SK하이닉스</span>
+            <div class="chg-row"><span class="up">▲ +238,000</span><span class="up">+10.88%</span></div>
+          </div>
+          <div class="val up">2,425,000</div>
+          <div class="ticker">000660</div>
+          <div class="vol-amt">거래량 795만주 &nbsp;|&nbsp; 거래대금 19.3조</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="label">케어젠</span>
+            <div class="chg-row"><span class="down">▼ -4,500</span><span class="down">-6.16%</span></div>
+          </div>
+          <div class="val down">68,500</div>
+          <div class="ticker">214370</div>
+          <div class="vol-amt">거래량 7만주 &nbsp;|&nbsp; 거래대금 45억</div>
+        </div></div>
+</div>
+</body>
+</html>
