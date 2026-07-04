@@ -10,147 +10,427 @@ body {
   font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   background: #f0f3ef; min-height: 100vh; color: #111;
 }
+
+/* ── Header ── */
 .header {
   background: linear-gradient(160deg, #0b4d2e 0%, #145d39 100%);
   padding: 28px 40px 0; color: #fff;
 }
-.badge { font-size: 12px; color: #82c49c; margin-bottom: 12px; display:flex; align-items:center; gap:5px; }
+.badge { font-size: 12px; color: #82c49c; margin-bottom: 12px; }
 .h-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; }
 .update-bar {
   background: #fff; border-radius: 10px 10px 0 0;
-  padding: 16px 24px; display: flex; align-items: center; justify-content: center;
-  gap: 10px; font-size: 14px; color: #145d39; font-weight: 600;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+  font-size: 14px; color: #145d39; font-weight: 600;
 }
-.update-bar .meta { font-size: 12px; color: #888; font-weight: 400; margin-left: 8px; }
+.update-bar .left { display: flex; align-items: center; gap: 10px; }
+.update-bar .meta { font-size: 12px; color: #888; font-weight: 400; }
+.refresh-btn {
+  font-size: 12px; padding: 5px 12px; border-radius: 20px;
+  border: 1px solid #c8dfc8; background: #f4fbf4;
+  color: #145d39; cursor: pointer; font-weight: 600; transition: background .15s;
+}
+.refresh-btn:hover { background: #e2f0e2; }
+
+/* ── Body ── */
 .body { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
 .sec-head {
   font-size: 15px; font-weight: 700; color: #222; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; justify-content: space-between;
 }
+.sec-head-left { display: flex; align-items: center; gap: 6px; }
+.add-btn {
+  font-size: 12px; padding: 5px 14px; border-radius: 20px;
+  border: 1px solid #c8dfc8; background: #fff;
+  color: #145d39; cursor: pointer; font-weight: 600; transition: background .15s;
+}
+.add-btn:hover { background: #e2f0e2; }
+
+/* ── Grid ── */
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+
+/* ── Card ── */
 .card {
   background: #fff; border-radius: 10px; border: 1px solid #dde4d8;
   padding: 17px 20px 15px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  transition: box-shadow .15s ease;
+  transition: box-shadow .15s;
 }
 .card:hover { box-shadow: 0 5px 16px rgba(0,0,0,0.09); }
 .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .label   { font-size: 13px; color: #777; font-weight: 500; }
 .chg-row { display: flex; gap: 7px; font-size: 12px; font-weight: 600; }
 .val     { font-size: 26px; font-weight: 800; letter-spacing: -1px; }
-.card-foot { display: flex; align-items: center; gap: 8px; margin-top: 7px; }
+.card-foot { display: flex; align-items: center; gap: 8px; margin-top: 7px; flex-wrap: wrap; }
 .ticker-code { font-size: 11px; color: #ccc; }
 .badge-m {
-  font-size: 11px; font-weight: 600; padding: 2px 7px;
-  border-radius: 20px; background: #f5f5f5;
+  font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 20px;
 }
 .vol-amt { font-size: 11px; color: #999; margin-top: 5px; }
+.remove-btn {
+  width: 20px; height: 20px; border-radius: 50%; border: none;
+  background: #f0f0f0; color: #999; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background .15s;
+}
+.remove-btn:hover { background: #fde8e8; color: #c62828; }
+
+/* ── Colors ── */
 .up      { color: #c62828; }
 .down    { color: #1565c0; }
 .neutral { color: #bbb; }
-.badge-m.up   { color: #c62828; background: #fff0f0; }
-.badge-m.down { color: #1565c0; background: #f0f4ff; }
+.badge-m.up      { color: #c62828; background: #fff0f0; }
+.badge-m.down    { color: #1565c0; background: #f0f4ff; }
 .badge-m.neutral { color: #bbb; background: #f5f5f5; }
+
+/* ── Skeleton ── */
+.skeleton {
+  background: linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);
+  background-size: 200% 100%; animation: sh 1.2s infinite;
+  border-radius: 4px;
+}
+@keyframes sh { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-box {
+  background: #fff; border-radius: 14px; padding: 28px;
+  width: 360px; max-width: 90vw;
+  transform: translateY(10px); transition: transform .2s;
+}
+.modal-overlay.open .modal-box { transform: translateY(0); }
+.modal-title { font-size: 17px; font-weight: 700; margin-bottom: 18px; }
+.modal-input {
+  width: 100%; padding: 11px 14px; border-radius: 8px;
+  border: 1px solid #dde4d8; font-size: 14px; margin-bottom: 10px;
+  font-family: inherit; outline: none;
+}
+.modal-input:focus { border-color: #145d39; }
+.modal-hint { font-size: 12px; color: #999; margin-bottom: 18px; line-height: 1.6; }
+.modal-err  { font-size: 12px; color: #c62828; margin: -4px 0 10px; min-height: 16px; }
+.modal-btns { display: flex; gap: 8px; }
+.btn-confirm {
+  flex: 1; padding: 11px; border-radius: 8px; border: none;
+  background: #145d39; color: #fff; font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.btn-confirm:hover { background: #0f4a2d; }
+.btn-confirm:disabled { opacity: .6; cursor: default; }
+.btn-cancel {
+  padding: 11px 20px; border-radius: 8px;
+  border: 1px solid #dde4d8; background: #fff;
+  font-size: 14px; cursor: pointer; font-family: inherit;
+}
 </style>
 </head>
 <body>
+
 <div class="header">
   <div class="badge">✦ 하나증권 WM기획실 · AI 시황 에이전트</div>
   <div class="h-title">AI 마켓 브리핑</div>
   <div class="update-bar">
-    <span>✦ AI 시황 업데이트 완료</span>
-    <span class="meta">기준: 2026.07.03 &nbsp;|&nbsp; 갱신: 2026.07.04 13:36</span>
+    <div class="left">
+      <span id="status">⏳ 데이터 로딩 중...</span>
+      <span id="meta" class="meta"></span>
+    </div>
+    <button class="refresh-btn" onclick="loadAll()">🔄 새로고침</button>
   </div>
 </div>
+
 <div class="body">
-  <div class="sec-head">🏦 주요 지수</div>
-  <div class="grid">
-        <div class="card">
-          <div class="card-top">
-            <span class="label">코스피</span>
-            <div class="chg-row"><span class="up">▲ +440.25</span><span class="up">+5.76%</span></div>
-          </div>
-          <div class="val up">8,088.34</div>
-          <div class="card-foot"><span class="badge-m down">월간 ▼ -6.38%</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="label">코스닥</span>
-            <div class="chg-row"><span class="up">▲ +1.69</span><span class="up">+0.19%</span></div>
-          </div>
-          <div class="val up">868.41</div>
-          <div class="card-foot"><span class="badge-m down">월간 ▼ -17.27%</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="label">원/달러 환율</span>
-            <div class="chg-row"><span class="down">▼ -21.7</span><span class="down">-1.40%</span></div>
-          </div>
-          <div class="val down">1,530.2</div>
-          <div class="card-foot"><span class="badge-m up">월간 ▲ +0.00%</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="label">S&P 500</span>
-            <div class="chg-row"><span class="up">▲ +0.01</span><span class="up">+0.00%</span></div>
-          </div>
-          <div class="val up">7,483.24</div>
-          <div class="card-foot"><span class="badge-m down">월간 ▼ -1.66%</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="label">나스닥종합</span>
-            <div class="chg-row"><span class="down">▼ -207.36</span><span class="down">-0.80%</span></div>
-          </div>
-          <div class="val down">25,832.67</div>
-          <div class="card-foot"><span class="badge-m down">월간 ▼ -4.66%</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="label">닛케이225</span>
-            <div class="chg-row"><span class="up">▲ +1,010.92</span><span class="up">+1.47%</span></div>
-          </div>
-          <div class="val up">69,744.07</div>
-          <div class="card-foot"><span class="badge-m up">월간 ▲ +3.37%</span></div>
-        </div></div>
-  <div class="sec-head">📈 관심 종목</div>
-  <div class="grid">
-        <div class="card">
-          <div class="card-top">
-            <span class="label">삼성전자</span>
-            <div class="chg-row"><span class="up">▲ +23,500</span><span class="up">+8.22%</span></div>
-          </div>
-          <div class="val up">309,500</div>
-          <div class="card-foot">
-            <span class="ticker-code">005930</span>
-            <span class="badge-m down">월간 ▼ -11.95%</span>
-          </div>
-          <div class="vol-amt">거래량 3150만주 &nbsp;|&nbsp; 거래대금 9.7조</div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="label">SK하이닉스</span>
-            <div class="chg-row"><span class="up">▲ +238,000</span><span class="up">+10.88%</span></div>
-          </div>
-          <div class="val up">2,425,000</div>
-          <div class="card-foot">
-            <span class="ticker-code">000660</span>
-            <span class="badge-m up">월간 ▲ +5.53%</span>
-          </div>
-          <div class="vol-amt">거래량 795만주 &nbsp;|&nbsp; 거래대금 19.3조</div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="label">케어젠</span>
-            <div class="chg-row"><span class="down">▼ -4,500</span><span class="down">-6.16%</span></div>
-          </div>
-          <div class="val down">68,500</div>
-          <div class="card-foot">
-            <span class="ticker-code">214370</span>
-            <span class="badge-m down">월간 ▼ -18.93%</span>
-          </div>
-          <div class="vol-amt">거래량 7만주 &nbsp;|&nbsp; 거래대금 45억</div>
-        </div></div>
+  <div class="sec-head">
+    <span class="sec-head-left">🏦 주요 지수</span>
+  </div>
+  <div id="indices-grid" class="grid"></div>
+
+  <div class="sec-head">
+    <span class="sec-head-left">📈 관심 종목</span>
+    <button class="add-btn" id="open-modal">＋ 종목 추가</button>
+  </div>
+  <div id="stocks-grid" class="grid"></div>
 </div>
+
+<!-- 종목 추가 모달 -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-title">종목 추가</div>
+    <input class="modal-input" id="ticker-in" placeholder="종목코드  예) 005930  /  TSLA">
+    <input class="modal-input" id="name-in"   placeholder="종목명  예) 삼성전자  (비워두면 자동조회)">
+    <div class="modal-err" id="modal-err"></div>
+    <p class="modal-hint">
+      한국 주식: KRX 6자리 코드 입력<br>
+      해외 주식: 야후 파이낸스 티커 입력 (AAPL, TSLA 등)<br>
+      종목명을 비워두면 자동으로 불러옵니다
+    </p>
+    <div class="modal-btns">
+      <button class="btn-confirm" id="confirm-btn">추가하기</button>
+      <button class="btn-cancel"  id="cancel-btn">취소</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── 설정 ──────────────────────────────────────────────────
+
+const INDICES = [
+  { symbol: '^KS11',    name: '코스피' },
+  { symbol: '^KQ11',    name: '코스닥' },
+  { symbol: 'USDKRW=X', name: '원/달러 환율' },
+  { symbol: '^GSPC',    name: 'S&P 500' },
+  { symbol: '^IXIC',    name: '나스닥종합' },
+  { symbol: '^N225',    name: '닛케이225' },
+];
+
+const DEFAULT_STOCKS = [
+  { ticker: '005930', name: '삼성전자' },
+  { ticker: '000660', name: 'SK하이닉스' },
+  { ticker: '214370', name: '케어젠' },
+];
+
+// ── localStorage ──────────────────────────────────────────
+
+function getStocks() {
+  try {
+    const s = localStorage.getItem('mkt_stocks');
+    return s ? JSON.parse(s) : [...DEFAULT_STOCKS];
+  } catch { return [...DEFAULT_STOCKS]; }
+}
+function saveStocks(list) {
+  localStorage.setItem('mkt_stocks', JSON.stringify(list));
+}
+
+// ── 심볼 변환 ─────────────────────────────────────────────
+
+function toSymbol(ticker) {
+  return /^\d{6}$/.test(ticker) ? ticker + '.KS' : ticker;
+}
+
+// ── Yahoo Finance fetch ───────────────────────────────────
+
+async function fetchYF(symbol) {
+  const base  = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=35d`;
+  const base2 = base.replace('query1', 'query2');
+  const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(base)}`;
+
+  for (const url of [base, base2, proxy]) {
+    try {
+      const r = await fetch(url, { cache: 'no-cache' });
+      if (!r.ok) continue;
+      const json = await r.json();
+      const res  = json?.chart?.result?.[0];
+      if (!res) continue;
+
+      const meta   = res.meta ?? {};
+      const q      = res.indicators?.quote?.[0] ?? {};
+      const closes = (q.close  ?? []).filter(c => c != null);
+      const vols   = (q.volume ?? []).filter(v => v != null);
+
+      const current   = meta.regularMarketPrice ?? closes.at(-1);
+      const prevClose = meta.chartPreviousClose  ?? closes.at(-2);
+      if (!current || !prevClose) continue;
+
+      const dayChg = current - prevClose;
+      const dayPct = dayChg / prevClose * 100;
+
+      let monthPct = null, monthUp = null;
+      if (closes.length >= 20) {
+        const mAgo = closes[0];
+        const mChg = current - mAgo;
+        monthPct = mChg / mAgo * 100;
+        monthUp  = mChg >= 0;
+      }
+
+      return {
+        current, dayChg, dayPct, monthPct, monthUp,
+        lastVol:   vols.at(-1) ?? 0,
+        shortName: meta.shortName ?? meta.longName ?? null,
+        currency:  meta.currency ?? 'USD',
+      };
+    } catch {}
+  }
+  return null;
+}
+
+// ── 포맷 ──────────────────────────────────────────────────
+
+function fmtN(n, d) {
+  return n.toLocaleString('ko-KR', { minimumFractionDigits: d, maximumFractionDigits: d });
+}
+function fmtVol(v) {
+  if (v >= 1e8) return `${(v/1e8).toFixed(1)}억주`;
+  if (v >= 1e4) return `${(v/1e4).toFixed(0)}만주`;
+  return `${v.toLocaleString()}주`;
+}
+function fmtAmt(vol, price) {
+  const a = vol * price;
+  if (a >= 1e12) return `${(a/1e12).toFixed(1)}조`;
+  if (a >= 1e8)  return `${(a/1e8).toFixed(0)}억`;
+  return `${(a/1e4).toFixed(0)}만`;
+}
+
+// ── 카드 HTML ─────────────────────────────────────────────
+
+function skelCard(name) {
+  return `<div class="card">
+    <div class="card-top"><span class="label">${name}</span></div>
+    <div class="skeleton" style="height:30px;width:55%;margin:8px 0 10px"></div>
+    <div class="skeleton" style="height:13px;width:40%"></div>
+  </div>`;
+}
+
+function makeCard({ name, ticker, data, removable }) {
+  const removeBtn = removable
+    ? `<button class="remove-btn" data-ticker="${ticker}" title="삭제">×</button>`
+    : '';
+
+  if (!data) {
+    return `<div class="card">
+      <div class="card-top">
+        <span class="label">${name}</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          ${removeBtn}
+        </div>
+      </div>
+      <div class="val neutral">—</div>
+      <div class="card-foot"><span class="badge-m neutral">데이터 없음</span></div>
+    </div>`;
+  }
+
+  const { current, dayChg, dayPct, monthPct, monthUp, lastVol, currency } = data;
+  const up  = dayChg >= 0;
+  const cls = up ? 'up' : 'down';
+  const arr = up ? '▲' : '▼';
+  const isKRW = currency === 'KRW';
+  const dec   = isKRW ? 0 : 2;
+
+  const mBadge = monthPct !== null
+    ? `<span class="badge-m ${monthUp?'up':'down'}">월간 ${monthUp?'▲':'▼'} ${Math.abs(monthPct).toFixed(2)}%</span>`
+    : `<span class="badge-m neutral">월간 —</span>`;
+
+  const tickerBadge = ticker ? `<span class="ticker-code">${ticker}</span>` : '';
+
+  const volHtml = (isKRW && lastVol > 0)
+    ? `<div class="vol-amt">거래량 ${fmtVol(lastVol)} &nbsp;|&nbsp; 거래대금 ${fmtAmt(lastVol, current)}</div>`
+    : '';
+
+  return `<div class="card">
+    <div class="card-top">
+      <span class="label">${name}</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <div class="chg-row">
+          <span class="${cls}">${arr} ${fmtN(dayChg, dec)}</span>
+          <span class="${cls}">${dayPct>=0?'+':''}${dayPct.toFixed(2)}%</span>
+        </div>
+        ${removeBtn}
+      </div>
+    </div>
+    <div class="val ${cls}">${fmtN(current, dec)}</div>
+    <div class="card-foot">${tickerBadge}${mBadge}</div>
+    ${volHtml}
+  </div>`;
+}
+
+// ── 로드 & 렌더 ───────────────────────────────────────────
+
+async function loadAll() {
+  const statusEl = document.getElementById('status');
+  const metaEl   = document.getElementById('meta');
+  statusEl.textContent = '⏳ 데이터 로딩 중...';
+  metaEl.textContent   = '';
+
+  const stockList = getStocks();
+
+  // 스켈레톤
+  document.getElementById('indices-grid').innerHTML = INDICES.map(i => skelCard(i.name)).join('');
+  document.getElementById('stocks-grid').innerHTML  = stockList.map(s => skelCard(s.name)).join('');
+
+  // 병렬 fetch
+  const allSyms = [...INDICES.map(i => i.symbol), ...stockList.map(s => toSymbol(s.ticker))];
+  const settled = await Promise.allSettled(allSyms.map(fetchYF));
+  const dm = {};
+  allSyms.forEach((sym, i) => { dm[sym] = settled[i].value ?? null; });
+
+  document.getElementById('indices-grid').innerHTML = INDICES.map(idx =>
+    makeCard({ name: idx.name, data: dm[idx.symbol], removable: false })
+  ).join('');
+
+  document.getElementById('stocks-grid').innerHTML = stockList.map(s =>
+    makeCard({ name: s.name, ticker: s.ticker, data: dm[toSymbol(s.ticker)], removable: true })
+  ).join('');
+
+  const now = new Date().toLocaleString('ko-KR', {
+    year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'
+  });
+  statusEl.textContent = '✦ AI 시황 업데이트 완료';
+  metaEl.textContent   = `갱신: ${now}`;
+}
+
+// ── 종목 삭제 (이벤트 위임) ──────────────────────────────
+
+document.getElementById('stocks-grid').addEventListener('click', e => {
+  const btn = e.target.closest('.remove-btn');
+  if (!btn) return;
+  const ticker = btn.dataset.ticker;
+  const label  = btn.closest('.card')?.querySelector('.label')?.textContent ?? ticker;
+  if (!confirm(`"${label}" 을(를) 삭제할까요?`)) return;
+  saveStocks(getStocks().filter(s => s.ticker !== ticker));
+  loadAll();
+});
+
+// ── 모달 ─────────────────────────────────────────────────
+
+const modal    = document.getElementById('modal');
+const tickerIn = document.getElementById('ticker-in');
+const nameIn   = document.getElementById('name-in');
+const errEl    = document.getElementById('modal-err');
+const confirmBtn = document.getElementById('confirm-btn');
+
+document.getElementById('open-modal').onclick = () => {
+  tickerIn.value = ''; nameIn.value = ''; errEl.textContent = '';
+  modal.classList.add('open');
+  setTimeout(() => tickerIn.focus(), 200);
+};
+document.getElementById('cancel-btn').onclick = () => modal.classList.remove('open');
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+
+// 티커 blur → 이름 자동완성
+tickerIn.addEventListener('blur', async () => {
+  const t = tickerIn.value.trim();
+  if (!t || nameIn.value.trim()) return;
+  const data = await fetchYF(toSymbol(t));
+  if (data?.shortName) nameIn.value = data.shortName;
+});
+
+confirmBtn.onclick = async () => {
+  const ticker = tickerIn.value.trim().toUpperCase();
+  errEl.textContent = '';
+  if (!ticker) { errEl.textContent = '종목코드를 입력하세요.'; return; }
+  if (getStocks().find(s => s.ticker === ticker)) {
+    errEl.textContent = '이미 추가된 종목입니다.'; return;
+  }
+
+  confirmBtn.textContent = '확인 중...'; confirmBtn.disabled = true;
+  const data = await fetchYF(toSymbol(ticker));
+  confirmBtn.textContent = '추가하기'; confirmBtn.disabled = false;
+
+  if (!data) { errEl.textContent = '데이터를 불러올 수 없습니다. 코드를 확인해 주세요.'; return; }
+
+  const name = nameIn.value.trim() || data.shortName || ticker;
+  saveStocks([...getStocks(), { ticker, name }]);
+  modal.classList.remove('open');
+  loadAll();
+};
+
+[tickerIn, nameIn].forEach(el =>
+  el.addEventListener('keydown', e => { if (e.key === 'Enter') confirmBtn.click(); })
+);
+
+// 초기 로드
+loadAll();
+</script>
 </body>
 </html>
