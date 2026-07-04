@@ -10,8 +10,6 @@ body {
   font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   background: #f0f3ef; min-height: 100vh; color: #111;
 }
-
-/* ── Header ── */
 .header {
   background: linear-gradient(160deg, #0b4d2e 0%, #145d39 100%);
   padding: 28px 40px 0; color: #fff;
@@ -23,16 +21,14 @@ body {
   padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
   font-size: 14px; color: #145d39; font-weight: 600;
 }
-.update-bar .left { display: flex; align-items: center; gap: 10px; }
+.update-bar .left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .update-bar .meta { font-size: 12px; color: #888; font-weight: 400; }
 .refresh-btn {
   font-size: 12px; padding: 5px 12px; border-radius: 20px;
   border: 1px solid #c8dfc8; background: #f4fbf4;
-  color: #145d39; cursor: pointer; font-weight: 600; transition: background .15s;
+  color: #145d39; cursor: pointer; font-weight: 600; white-space: nowrap;
 }
 .refresh-btn:hover { background: #e2f0e2; }
-
-/* ── Body ── */
 .body { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
 .sec-head {
   font-size: 15px; font-weight: 700; color: #222; margin-bottom: 12px;
@@ -42,14 +38,10 @@ body {
 .add-btn {
   font-size: 12px; padding: 5px 14px; border-radius: 20px;
   border: 1px solid #c8dfc8; background: #fff;
-  color: #145d39; cursor: pointer; font-weight: 600; transition: background .15s;
+  color: #145d39; cursor: pointer; font-weight: 600;
 }
 .add-btn:hover { background: #e2f0e2; }
-
-/* ── Grid ── */
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
-
-/* ── Card ── */
 .card {
   background: #fff; border-radius: 10px; border: 1px solid #dde4d8;
   padding: 17px 20px 15px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
@@ -62,35 +54,26 @@ body {
 .val     { font-size: 26px; font-weight: 800; letter-spacing: -1px; }
 .card-foot { display: flex; align-items: center; gap: 8px; margin-top: 7px; flex-wrap: wrap; }
 .ticker-code { font-size: 11px; color: #ccc; }
-.badge-m {
-  font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 20px;
-}
+.badge-m { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 20px; }
 .vol-amt { font-size: 11px; color: #999; margin-top: 5px; }
 .remove-btn {
   width: 20px; height: 20px; border-radius: 50%; border: none;
   background: #f0f0f0; color: #999; cursor: pointer; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: background .15s;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .remove-btn:hover { background: #fde8e8; color: #c62828; }
-
-/* ── Colors ── */
-.up      { color: #c62828; }
-.down    { color: #1565c0; }
+.up   { color: #c62828; }
+.down { color: #1565c0; }
 .neutral { color: #bbb; }
 .badge-m.up      { color: #c62828; background: #fff0f0; }
 .badge-m.down    { color: #1565c0; background: #f0f4ff; }
 .badge-m.neutral { color: #bbb; background: #f5f5f5; }
-
-/* ── Skeleton ── */
 .skeleton {
   background: linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);
-  background-size: 200% 100%; animation: sh 1.2s infinite;
-  border-radius: 4px;
+  background-size: 200% 100%; animation: sh 1.2s infinite; border-radius: 4px;
 }
 @keyframes sh { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-/* ── Modal ── */
+/* Modal */
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.4);
   display: flex; align-items: center; justify-content: center;
@@ -134,7 +117,7 @@ body {
   <div class="h-title">AI 마켓 브리핑</div>
   <div class="update-bar">
     <div class="left">
-      <span id="status">⏳ 데이터 로딩 중...</span>
+      <span id="status">⏳ 로딩 중...</span>
       <span id="meta" class="meta"></span>
     </div>
     <button class="refresh-btn" onclick="loadAll()">🔄 새로고침</button>
@@ -154,17 +137,16 @@ body {
   <div id="stocks-grid" class="grid"></div>
 </div>
 
-<!-- 종목 추가 모달 -->
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
     <div class="modal-title">종목 추가</div>
     <input class="modal-input" id="ticker-in" placeholder="종목코드  예) 005930  /  TSLA">
-    <input class="modal-input" id="name-in"   placeholder="종목명  예) 삼성전자  (비워두면 자동조회)">
+    <input class="modal-input" id="name-in"   placeholder="종목명  예) 삼성전자  (비워두면 코드로 표시)">
     <div class="modal-err" id="modal-err"></div>
     <p class="modal-hint">
-      한국 주식: KRX 6자리 코드 입력<br>
-      해외 주식: 야후 파이낸스 티커 입력 (AAPL, TSLA 등)<br>
-      종목명을 비워두면 자동으로 불러옵니다
+      한국 주식: KRX 6자리 코드<br>
+      해외 주식: 야후 파이낸스 티커 (AAPL, TSLA 등)<br>
+      데이터는 매 평일 오전 8시 자동 갱신됩니다
     </p>
     <div class="modal-btns">
       <button class="btn-confirm" id="confirm-btn">추가하기</button>
@@ -194,14 +176,10 @@ const DEFAULT_STOCKS = [
 // ── localStorage ──────────────────────────────────────────
 
 function getStocks() {
-  try {
-    const s = localStorage.getItem('mkt_stocks');
-    return s ? JSON.parse(s) : [...DEFAULT_STOCKS];
-  } catch { return [...DEFAULT_STOCKS]; }
+  try { return JSON.parse(localStorage.getItem('mkt_stocks')) || [...DEFAULT_STOCKS]; }
+  catch { return [...DEFAULT_STOCKS]; }
 }
-function saveStocks(list) {
-  localStorage.setItem('mkt_stocks', JSON.stringify(list));
-}
+function saveStocks(list) { localStorage.setItem('mkt_stocks', JSON.stringify(list)); }
 
 // ── 심볼 변환 ─────────────────────────────────────────────
 
@@ -209,46 +187,56 @@ function toSymbol(ticker) {
   return /^\d{6}$/.test(ticker) ? ticker + '.KS' : ticker;
 }
 
-// ── Yahoo Finance fetch ───────────────────────────────────
+// ── data.json 로드 (메인 데이터 소스) ─────────────────────
+
+async function loadDataJson() {
+  try {
+    const r = await fetch('./data.json?t=' + Date.now());
+    if (r.ok) {
+      const j = await r.json();
+      return { symbols: j.symbols ?? {}, updated: j.updated ?? null };
+    }
+  } catch {}
+  return { symbols: {}, updated: null };
+}
+
+// ── Yahoo Finance (보조: user 추가 종목용) ────────────────
 
 async function fetchYF(symbol) {
-  const base  = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=35d`;
-  const base2 = base.replace('query1', 'query2');
-  const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(base)}`;
-
-  for (const url of [base, base2, proxy]) {
+  const base = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=35d`;
+  const urls = [
+    base,
+    base.replace('query1','query2'),
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(base)}`,
+    `https://corsproxy.io/?${encodeURIComponent(base)}`,
+  ];
+  for (const url of urls) {
     try {
       const r = await fetch(url, { cache: 'no-cache' });
       if (!r.ok) continue;
       const json = await r.json();
       const res  = json?.chart?.result?.[0];
       if (!res) continue;
-
       const meta   = res.meta ?? {};
       const q      = res.indicators?.quote?.[0] ?? {};
-      const closes = (q.close  ?? []).filter(c => c != null);
+      const closes = (q.close ?? []).filter(c => c != null);
       const vols   = (q.volume ?? []).filter(v => v != null);
-
       const current   = meta.regularMarketPrice ?? closes.at(-1);
       const prevClose = meta.chartPreviousClose  ?? closes.at(-2);
       if (!current || !prevClose) continue;
-
       const dayChg = current - prevClose;
       const dayPct = dayChg / prevClose * 100;
-
       let monthPct = null, monthUp = null;
       if (closes.length >= 20) {
         const mAgo = closes[0];
-        const mChg = current - mAgo;
-        monthPct = mChg / mAgo * 100;
-        monthUp  = mChg >= 0;
+        monthPct = (current - mAgo) / mAgo * 100;
+        monthUp  = monthPct >= 0;
       }
-
       return {
+        name: meta.shortName ?? meta.longName ?? symbol,
         current, dayChg, dayPct, monthPct, monthUp,
-        lastVol:   vols.at(-1) ?? 0,
-        shortName: meta.shortName ?? meta.longName ?? null,
-        currency:  meta.currency ?? 'USD',
+        lastVol:  vols.at(-1) ?? 0,
+        currency: meta.currency ?? 'USD',
       };
     } catch {}
   }
@@ -272,13 +260,13 @@ function fmtAmt(vol, price) {
   return `${(a/1e4).toFixed(0)}만`;
 }
 
-// ── 카드 HTML ─────────────────────────────────────────────
+// ── 카드 ─────────────────────────────────────────────────
 
 function skelCard(name) {
   return `<div class="card">
     <div class="card-top"><span class="label">${name}</span></div>
     <div class="skeleton" style="height:30px;width:55%;margin:8px 0 10px"></div>
-    <div class="skeleton" style="height:13px;width:40%"></div>
+    <div class="skeleton" style="height:12px;width:40%"></div>
   </div>`;
 }
 
@@ -291,9 +279,7 @@ function makeCard({ name, ticker, data, removable }) {
     return `<div class="card">
       <div class="card-top">
         <span class="label">${name}</span>
-        <div style="display:flex;align-items:center;gap:6px">
-          ${removeBtn}
-        </div>
+        <div style="display:flex;gap:6px;align-items:center">${removeBtn}</div>
       </div>
       <div class="val neutral">—</div>
       <div class="card-foot"><span class="badge-m neutral">데이터 없음</span></div>
@@ -301,26 +287,26 @@ function makeCard({ name, ticker, data, removable }) {
   }
 
   const { current, dayChg, dayPct, monthPct, monthUp, lastVol, currency } = data;
-  const up  = dayChg >= 0;
-  const cls = up ? 'up' : 'down';
-  const arr = up ? '▲' : '▼';
   const isKRW = currency === 'KRW';
   const dec   = isKRW ? 0 : 2;
+  const up    = dayChg >= 0;
+  const cls   = up ? 'up' : 'down';
+  const arr   = up ? '▲' : '▼';
 
-  const mBadge = monthPct !== null
+  const mBadge = monthPct != null
     ? `<span class="badge-m ${monthUp?'up':'down'}">월간 ${monthUp?'▲':'▼'} ${Math.abs(monthPct).toFixed(2)}%</span>`
     : `<span class="badge-m neutral">월간 —</span>`;
-
-  const tickerBadge = ticker ? `<span class="ticker-code">${ticker}</span>` : '';
 
   const volHtml = (isKRW && lastVol > 0)
     ? `<div class="vol-amt">거래량 ${fmtVol(lastVol)} &nbsp;|&nbsp; 거래대금 ${fmtAmt(lastVol, current)}</div>`
     : '';
 
+  const tickerBadge = ticker ? `<span class="ticker-code">${ticker}</span>` : '';
+
   return `<div class="card">
     <div class="card-top">
       <span class="label">${name}</span>
-      <div style="display:flex;align-items:center;gap:6px">
+      <div style="display:flex;gap:6px;align-items:center">
         <div class="chg-row">
           <span class="${cls}">${arr} ${fmtN(dayChg, dec)}</span>
           <span class="${cls}">${dayPct>=0?'+':''}${dayPct.toFixed(2)}%</span>
@@ -337,10 +323,8 @@ function makeCard({ name, ticker, data, removable }) {
 // ── 로드 & 렌더 ───────────────────────────────────────────
 
 async function loadAll() {
-  const statusEl = document.getElementById('status');
-  const metaEl   = document.getElementById('meta');
-  statusEl.textContent = '⏳ 데이터 로딩 중...';
-  metaEl.textContent   = '';
+  document.getElementById('status').textContent = '⏳ 로딩 중...';
+  document.getElementById('meta').textContent   = '';
 
   const stockList = getStocks();
 
@@ -348,28 +332,46 @@ async function loadAll() {
   document.getElementById('indices-grid').innerHTML = INDICES.map(i => skelCard(i.name)).join('');
   document.getElementById('stocks-grid').innerHTML  = stockList.map(s => skelCard(s.name)).join('');
 
-  // 병렬 fetch
-  const allSyms = [...INDICES.map(i => i.symbol), ...stockList.map(s => toSymbol(s.ticker))];
-  const settled = await Promise.allSettled(allSyms.map(fetchYF));
-  const dm = {};
-  allSyms.forEach((sym, i) => { dm[sym] = settled[i].value ?? null; });
+  // data.json 로드 (메인 소스)
+  const { symbols, updated } = await loadDataJson();
 
-  document.getElementById('indices-grid').innerHTML = INDICES.map(idx =>
-    makeCard({ name: idx.name, data: dm[idx.symbol], removable: false })
-  ).join('');
-
-  document.getElementById('stocks-grid').innerHTML = stockList.map(s =>
-    makeCard({ name: s.name, ticker: s.ticker, data: dm[toSymbol(s.ticker)], removable: true })
-  ).join('');
-
-  const now = new Date().toLocaleString('ko-KR', {
-    year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'
+  // 지수: data.json 사용, 없으면 Yahoo Finance 시도
+  const indicesFetches = INDICES.map(async idx => {
+    if (symbols[idx.symbol]) return { ...idx, data: symbols[idx.symbol] };
+    const live = await fetchYF(idx.symbol);
+    return { ...idx, data: live };
   });
-  statusEl.textContent = '✦ AI 시황 업데이트 완료';
-  metaEl.textContent   = `갱신: ${now}`;
+
+  // 종목: data.json 사용, 없으면 Yahoo Finance 시도
+  const stocksFetches = stockList.map(async s => {
+    const sym = toSymbol(s.ticker);
+    if (symbols[sym]) return { ...s, data: { ...symbols[sym], name: s.name } };
+    const live = await fetchYF(sym);
+    return { ...s, data: live ? { ...live, name: s.name } : null };
+  });
+
+  const [indices, stocks] = await Promise.all([
+    Promise.all(indicesFetches),
+    Promise.all(stocksFetches),
+  ]);
+
+  document.getElementById('indices-grid').innerHTML = indices.map(i =>
+    makeCard({ name: i.name, data: i.data, removable: false })
+  ).join('');
+
+  document.getElementById('stocks-grid').innerHTML = stocks.map(s =>
+    makeCard({ name: s.name, ticker: s.ticker, data: s.data, removable: true })
+  ).join('');
+
+  document.getElementById('status').textContent = '✦ AI 시황 업데이트 완료';
+  if (updated) {
+    const dt = new Date(updated);
+    const str = dt.toLocaleString('ko-KR', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+    document.getElementById('meta').textContent = `기준: ${str}`;
+  }
 }
 
-// ── 종목 삭제 (이벤트 위임) ──────────────────────────────
+// ── 종목 삭제 ─────────────────────────────────────────────
 
 document.getElementById('stocks-grid').addEventListener('click', e => {
   const btn = e.target.closest('.remove-btn');
@@ -383,10 +385,10 @@ document.getElementById('stocks-grid').addEventListener('click', e => {
 
 // ── 모달 ─────────────────────────────────────────────────
 
-const modal    = document.getElementById('modal');
-const tickerIn = document.getElementById('ticker-in');
-const nameIn   = document.getElementById('name-in');
-const errEl    = document.getElementById('modal-err');
+const modal     = document.getElementById('modal');
+const tickerIn  = document.getElementById('ticker-in');
+const nameIn    = document.getElementById('name-in');
+const errEl     = document.getElementById('modal-err');
 const confirmBtn = document.getElementById('confirm-btn');
 
 document.getElementById('open-modal').onclick = () => {
@@ -397,29 +399,15 @@ document.getElementById('open-modal').onclick = () => {
 document.getElementById('cancel-btn').onclick = () => modal.classList.remove('open');
 modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
 
-// 티커 blur → 이름 자동완성
-tickerIn.addEventListener('blur', async () => {
-  const t = tickerIn.value.trim();
-  if (!t || nameIn.value.trim()) return;
-  const data = await fetchYF(toSymbol(t));
-  if (data?.shortName) nameIn.value = data.shortName;
-});
-
-confirmBtn.onclick = async () => {
+confirmBtn.onclick = () => {
   const ticker = tickerIn.value.trim().toUpperCase();
   errEl.textContent = '';
   if (!ticker) { errEl.textContent = '종목코드를 입력하세요.'; return; }
+  if (!/^[\w\^=.]{1,10}$/.test(ticker)) { errEl.textContent = '올바른 종목코드 형식이 아닙니다.'; return; }
   if (getStocks().find(s => s.ticker === ticker)) {
     errEl.textContent = '이미 추가된 종목입니다.'; return;
   }
-
-  confirmBtn.textContent = '확인 중...'; confirmBtn.disabled = true;
-  const data = await fetchYF(toSymbol(ticker));
-  confirmBtn.textContent = '추가하기'; confirmBtn.disabled = false;
-
-  if (!data) { errEl.textContent = '데이터를 불러올 수 없습니다. 코드를 확인해 주세요.'; return; }
-
-  const name = nameIn.value.trim() || data.shortName || ticker;
+  const name = nameIn.value.trim() || ticker;
   saveStocks([...getStocks(), { ticker, name }]);
   modal.classList.remove('open');
   loadAll();
@@ -429,7 +417,6 @@ confirmBtn.onclick = async () => {
   el.addEventListener('keydown', e => { if (e.key === 'Enter') confirmBtn.click(); })
 );
 
-// 초기 로드
 loadAll();
 </script>
 </body>
